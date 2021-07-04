@@ -166,6 +166,14 @@ class Downloader():
             for i, file in enumerate(add_liveries):
                 self.liveries.append(file)
 
+            response = requests.get("https://raw.githubusercontent.com/MrRavenMan/WCDownloader/main/update.json") # Update update.json to current time to display update msg in UI
+            updateFile = response.json()
+
+            updateFile["liveries_update"] = int(time.time())
+            with open(OUTPUT_PATH + "/update.json", 'w') as fp:
+                json.dump(updateFile, fp, indent=4)
+
+
         except FileExistsError:
             print("API rate limit exceeded. Script can only be run once an hour!")
 
