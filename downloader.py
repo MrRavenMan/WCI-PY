@@ -46,7 +46,14 @@ class Downloader():
             input("\n \n Download of kneeboards is complete. Press enter it exit \n")    
         elif action[0] == "action:DownloadLiveries":
             self.get_skins()
-            self.start_download()   
+            self.start_download()
+
+            f = open(f'{PATH}conf/setup.json', 'r')
+            settings = json.load(f)
+            settings["liveries_date"] = int(time.time())
+            with open(f'{PATH}conf/setup.json', 'w') as fp:
+                json.dump(settings, fp, indent=4)
+
             input("\n \n Download is complete. Press enter it exit \n")   
 
         elif action[0] == "action:DownloadEventKneeboards":
